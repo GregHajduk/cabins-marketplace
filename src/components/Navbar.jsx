@@ -2,40 +2,83 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { ReactComponent as OfferIcon } from "../assets/svg/localOfferIcon.svg";
 import { ReactComponent as ExploreIcon } from "../assets/svg/exploreIcon.svg";
 import { ReactComponent as PersoneOutlineIcon } from "../assets/svg/personOutlineIcon.svg";
-import Explore from "../pages/Explore";
+import styled from "styled-components";
+
+const Nav = styled.div`
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 6rem;
+  background-color: #ffffff;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const NavbarWrapper = styled.div`
+  width: 100%;
+  margin-top: 0.75rem;
+  overflow-y: hidden;
+`;
+const NavbarListItems = styled.ul`
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+`;
+const NavbarListItem = styled.li`
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+const NavbarListItemTitle = styled.p``;
 
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const pathMatchRoute = (route) => {};
+  const active = (route) => {
+    if (route === location.pathname) {
+      return true;
+    }
+  };
   return (
-    <navbar className="navbar">
-      <div className="navbarWrapper">
-        <ul className="navbarListItems">
-          <li className="navbarListItem">
+    <Nav>
+      <NavbarWrapper>
+        <NavbarListItems>
+          <NavbarListItem>
             <ExploreIcon
+              fill={active("/") ? "coral" : "grey"}
               height="2rem"
               width="2rem"
               onClick={() => navigate("/")}
             />
-            <p>explore</p>
-          </li>
-          <li className="navbarListItem">
-            <OfferIcon height="2rem" width="2rem" onClick={() => navigate("/offers")} />
-            <p>offers</p>
-          </li>
-          <li className="navbarListItem">
+            <NavbarListItemTitle>explore</NavbarListItemTitle>
+          </NavbarListItem>
+          <NavbarListItem>
+            <OfferIcon
+              fill={active("/offers") ? "coral" : "grey"}
+              height="2rem"
+              width="2rem"
+              onClick={() => navigate("/offers")}
+            />
+            <NavbarListItemTitle>offers</NavbarListItemTitle>{" "}
+          </NavbarListItem>
+          <NavbarListItem>
             <PersoneOutlineIcon
+              fill={active("/profile") ? "coral" : "grey"}
               height="2rem"
               width="2rem"
               onClick={() => navigate("/profile")}
             />
-            <p>profile</p>
-          </li>
-        </ul>
-      </div>
-    </navbar>
+            <NavbarListItemTitle>profile</NavbarListItemTitle>{" "}
+          </NavbarListItem>
+        </NavbarListItems>
+      </NavbarWrapper>
+    </Nav>
   );
 };
 

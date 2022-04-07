@@ -6,12 +6,12 @@ import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyD67pAVDdD6OdZp5syaz6-nVhF8b9l19I4",
-  authDomain: "cabins-marketplace-app.firebaseapp.com",
-  projectId: "cabins-marketplace-app",
-  storageBucket: "cabins-marketplace-app.appspot.com",
-  messagingSenderId: "765539931892",
-  appId: "1:765539931892:web:e5fc5edfec6aa11e69b0a1",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_API_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase
