@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import {
   getAuth,
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
+import { setDoc, doc, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebase.config";
 import styled from "styled-components";
 import { ReactComponent as ArrowRightIcon } from "../assets/svg/keyboardArrowRightIcon.svg";
@@ -106,13 +108,13 @@ const Register = styled(Link)`
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFromData] = useState({ email: "", password: "" });
-  const { name, email, password } = formData;
+  const [userData, setUserData] = useState({ email: "", password: "" });
+  const { name, email, password } = userData;
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setFromData((prev) => ({
-      ...formData,
+    setUserData((prev) => ({
+      ...userData,
       [e.target.id]: e.target.value,
     }));
   };
@@ -131,10 +133,15 @@ const SignUp = () => {
       updateProfile(auth.currentUser, {
         displayName: name,
       });
-      navigate("/");
-    } catch (err) {
-      console.log(err);
+
+      const userDataCopy = { ...userData };
+      delete userDataCopy.password;
+      userDataCopy.timestamp = serverTimestamp();
+      await setDoc(doc(db, "users", user.uid), userDataCopy);
+    } catch (error) {
+      toast.error("there was a problem with your registration")
     }
+    navigate("/");
   };
 
   return (
@@ -182,7 +189,7 @@ const SignUp = () => {
             </Button>
           </SignInButtonContainer>
         </Form>
-        <Register to="/sign-in">sign in</Register>
+        <Register to="/sign-in">already have an account? sign in</Register>
       </PageContainer>
     </>
   );

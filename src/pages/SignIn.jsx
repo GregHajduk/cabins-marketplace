@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import styled from "styled-components";
 import { ReactComponent as ArrowRightIcon } from "../assets/svg/keyboardArrowRightIcon.svg";
 import visibilityIcon from "../assets/svg/visibilityIcon.svg";
@@ -88,24 +90,39 @@ const Register = styled(Link)`
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFromData] = useState({ email: "", password: "" });
-  const { email, password } = formData;
+  const [userData, setUserData] = useState({ email: "", password: "" });
+  const { email, password } = userData;
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setFromData((prev) => ({
-      ...formData,
+    setUserData((prev) => ({
+      ...userData,
       [e.target.id]: e.target.value,
     }));
   };
-
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const auth = getAuth();
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      if (userCredential.user) {
+        navigate("/");
+      }
+    } catch (error) {
+      toast.error("you entered wrong details")
+    }
+  };
   return (
     <>
       <PageContainer>
         <HeaderContainer>
           <PageHeader>Welcome Back!!!</PageHeader>
         </HeaderContainer>
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <EmailInput
             type="email"
             placeholder="Email"
@@ -137,7 +154,7 @@ const SignIn = () => {
             </Button>
           </SignInButtonContainer>
         </Form>
-        <Register to="/sign-up">sign up</Register>
+        <Register to="/sign-up">don't have an account? sign up</Register>
       </PageContainer>
     </>
   );
