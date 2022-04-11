@@ -19,7 +19,6 @@ const Header = styled.header`
 `;
 const LogoutButton = styled.button`
   cursor: pointer;
-  font-family: "Montserrat", sans-serif;
   font-size: 1rem;
   font-weight: 600;
   color: #ffffff;
@@ -60,9 +59,9 @@ const Profile = () => {
     name: auth.currentUser.displayName,
     email: auth.currentUser.email,
   });
-
   const { name, email } = userData;
   const [changeUserData, setChangeUserData] = useState(false);
+
   const handleLogout = () => {
     auth.signOut();
     navigate("/");
@@ -75,11 +74,11 @@ const Profile = () => {
         });
         const userRef = doc(db, "users", auth.currentUser.uid);
         await updateDoc(userRef, {
-          name
+          name,
         });
       }
     } catch (error) {
-      toast.error("couldn't update details");
+      toast.error("details could't be updated");
     }
   };
   const handleChange = (e) => {
