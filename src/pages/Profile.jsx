@@ -87,7 +87,7 @@ const Profile = () => {
       [e.target.id]: e.target.value,
     }));
   };
-  console.log(userData);
+
 
   return (
     <ProfileContainer>

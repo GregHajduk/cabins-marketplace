@@ -49,7 +49,7 @@ const Explore = () => {
           </CategoryLink>
           <CategoryLink to="/category/sell">
             <CategoryImage src={sellCategoryImage} alt="sell" />
-            <CategoryName>for sell</CategoryName>
+            <CategoryName>for sale</CategoryName>
           </CategoryLink>
         </Categories>
       </Main>
