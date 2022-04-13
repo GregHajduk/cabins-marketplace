@@ -6,6 +6,8 @@ import { db } from "../firebase.config";
 
 import styled from "styled-components";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
+import Button from "../components/Button";
 
 const Title = styled.h1`
   font-size: 2rem;
@@ -16,15 +18,6 @@ const Header = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`;
-const LogoutButton = styled.button`
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #ffffff;
-  background-color: #00cc66;
-  padding: 0.25rem 0.75rem;
-  border-radius: 1rem;
 `;
 const UserDetailsContainer = styled.div`
   display: flex;
@@ -50,6 +43,13 @@ const Input = styled.input`
   outline: none;
   border: none;
   border-radius: 5px;
+`;
+const CreateListingLink = styled(Link)`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
 `;
 
 const Profile = () => {
@@ -88,14 +88,11 @@ const Profile = () => {
     }));
   };
 
-
   return (
     <ProfileContainer>
       <Header>
         <Title>my profile</Title>
-        <LogoutButton type="button" onClick={handleLogout}>
-          logout
-        </LogoutButton>
+        <Button secondary title="logout" onClick={handleLogout} />
       </Header>
       <UserDetailsContainer>
         <DetailsName>personal details</DetailsName>
@@ -124,6 +121,9 @@ const Profile = () => {
           onChange={handleChange}
         ></Input>
       </ProfileForm>
+      <CreateListingLink to="/create-listing">
+        <Button title="create a listing" />
+      </CreateListingLink>
     </ProfileContainer>
   );
 };

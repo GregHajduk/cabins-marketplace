@@ -13,6 +13,7 @@ import Loading from "../components/Loading";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import styled from "styled-components";
+import SingleListing from "../components/SingleListing";
 
 const Container = styled.div``;
 const Title = styled.h2`
@@ -21,8 +22,9 @@ const Title = styled.h2`
 `;
 const NoListingsMessage = styled.p``;
 const ListingsContainer = styled.div``;
-const Listings = styled.ul``;
-const SingleListing = styled.li``;
+const Listings = styled.ul`
+  padding: 0;
+`;
 
 const Category = () => {
   const [listings, setListings] = useState([]);
@@ -54,7 +56,7 @@ const Category = () => {
       }
     };
     fetchListings();
-  });
+  }, [params.categoryName]);
 
   return (
     <Container>
@@ -68,9 +70,11 @@ const Category = () => {
           <Listings>
             {listings.map((listing) => {
               return (
-                <SingleListing key={listing.id}>
-                  {listing.data.name}
-                </SingleListing>
+                <SingleListing
+                  listing={listing.data}
+                  id={listing.id}
+                  key={listing.id}
+                />
               );
             })}
           </Listings>
