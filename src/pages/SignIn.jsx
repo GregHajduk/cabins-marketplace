@@ -5,14 +5,10 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import styled from "styled-components";
 import { ReactComponent as ArrowRightIcon } from "../assets/svg/keyboardArrowRightIcon.svg";
 import visibilityIcon from "../assets/svg/visibilityIcon.svg";
+import HeaderTitle from "../components/HeaderTitle";
 
 const PageContainer = styled.div`
   margin: 1rem;
-`;
-const HeaderContainer = styled.header``;
-const PageHeader = styled.p`
-  font-size: 2rem;
-  font-weight: 800;
 `;
 const Form = styled.form`
   display: flex;
@@ -55,7 +51,7 @@ const Image = styled.img`
 `;
 const ForgotPassword = styled(Link)`
   cursor: pointer;
-  color: #00cc66;
+  color: rebeccapurple;
   font-weight: 600;
   text-align: right;
 `;
@@ -76,13 +72,13 @@ const Button = styled.button`
   align-items: center;
   width: 3rem;
   height: 3rem;
-  background-color: #00cc66;
+  background-color: rebeccapurple;
   border-radius: 50%;
   cursor: pointer;
 `;
 const Register = styled(Link)`
   margin-top: 4rem;
-  color: #00cc66;
+  color: rebeccapurple;
   font-weight: 600;
   text-align: center;
   margin-bottom: 3rem;
@@ -113,15 +109,13 @@ const SignIn = () => {
         navigate("/");
       }
     } catch (error) {
-      toast.error("you entered wrong details")
+      toast.error("you entered wrong details");
     }
   };
   return (
     <>
       <PageContainer>
-        <HeaderContainer>
-          <PageHeader>Welcome Back!!!</PageHeader>
-        </HeaderContainer>
+        <HeaderTitle title="welcome back!" />
         <Form onSubmit={handleSubmit}>
           <EmailInput
             type="email"

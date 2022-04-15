@@ -8,11 +8,8 @@ import styled from "styled-components";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import Button from "../components/Button";
+import HeaderTitle from "../components/HeaderTitle";
 
-const Title = styled.h1`
-  font-size: 2rem;
-  font-weight: 800;
-`;
 const ProfileContainer = styled.div``;
 const Header = styled.header`
   display: flex;
@@ -30,7 +27,7 @@ const DetailsName = styled.p`
 const ChangeDetailsButton = styled.button`
   cursor: pointer;
   font-weight: 600;
-  color: #00cc66;
+  color: rebeccapurple;
   background-color: transparent;
 `;
 const ProfileForm = styled.form``;
@@ -91,7 +88,7 @@ const Profile = () => {
   return (
     <ProfileContainer>
       <Header>
-        <Title>my profile</Title>
+        <HeaderTitle title="profile" />
         <Button secondary title="logout" onClick={handleLogout} />
       </Header>
       <UserDetailsContainer>

@@ -51,7 +51,7 @@ const Navbar = () => {
         <NavbarListItems>
           <NavbarListItem>
             <ExploreIcon
-              fill={active("/") ? "coral" : "grey"}
+              fill={active("/") ? "rebeccapurple" : "grey"}
               height="2rem"
               width="2rem"
               onClick={() => navigate("/")}
@@ -60,7 +60,7 @@ const Navbar = () => {
           </NavbarListItem>
           <NavbarListItem>
             <OfferIcon
-              fill={active("/offers") ? "coral" : "grey"}
+              fill={active("/offers") ? "rebeccapurple" : "grey"}
               height="2rem"
               width="2rem"
               onClick={() => navigate("/offers")}
@@ -69,7 +69,7 @@ const Navbar = () => {
           </NavbarListItem>
           <NavbarListItem>
             <PersoneOutlineIcon
-              fill={active("/profile") ? "coral" : "grey"}
+              fill={active("/profile") ? "rebeccapurple" : "grey"}
               height="2rem"
               width="2rem"
               onClick={() => navigate("/profile")}

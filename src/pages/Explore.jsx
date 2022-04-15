@@ -2,13 +2,9 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import rentCategoryImage from "../assets/jpg/rentCategoryImage.jpg";
 import sellCategoryImage from "../assets/jpg/sellCategoryImage.jpg";
+import HeaderTitle from "../components/HeaderTitle";
 
 const Container = styled.div``;
-const Header = styled.header``;
-const HeaderText = styled.p`
-  font-size: 2rem;
-  font-weight: 800;
-`;
 const Main = styled.main``;
 const CategoryHeading = styled.h4`
   font-weight: 700;
@@ -37,9 +33,7 @@ const CategoryName = styled.p`
 const Explore = () => {
   return (
     <Container>
-      <Header>
-        <HeaderText>Explore</HeaderText>
-      </Header>
+      <HeaderTitle title="explore" />
       <Main>
         <CategoryHeading>categories</CategoryHeading>
         <Categories>

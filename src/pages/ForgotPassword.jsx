@@ -4,11 +4,8 @@ import { toast } from "react-toastify";
 import styled from "styled-components";
 import { ReactComponent as ArrowRightIcon } from "../assets/svg/keyboardArrowRightIcon.svg";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import HeaderTitle from "../components/HeaderTitle";
 
-const Title = styled.h2`
-  font-size: 2rem;
-  font-weight: 800;
-`;
 const Form = styled.form``;
 const Input = styled.input`
   margin-bottom: 2rem;
@@ -24,7 +21,7 @@ const Input = styled.input`
 `;
 const SignInLink = styled(Link)`
   cursor: pointer;
-  color: #00cc66;
+  color: rebeccapurple;
   font-weight: 600;
   text-align: right;
 `;
@@ -45,7 +42,7 @@ const Button = styled.button`
   align-items: center;
   width: 3rem;
   height: 3rem;
-  background-color: #00cc66;
+  background-color: rebeccapurple;
   border-radius: 50%;
   cursor: pointer;
 `;
@@ -66,7 +63,7 @@ const ForgotPassword = () => {
   };
   return (
     <>
-      <Title>ForgotPassword</Title>
+      <HeaderTitle title="forgot password" />
       <Form onSubmit={handleSubmit}>
         <Input
           type="email"

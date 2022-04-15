@@ -11,15 +11,11 @@ import { db } from "../firebase.config";
 import { toast } from "react-toastify";
 import Loading from "../components/Loading";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
 import styled from "styled-components";
 import SingleListing from "../components/SingleListing";
+import HeaderTitle from "../components/HeaderTitle";
 
 const Container = styled.div``;
-const Title = styled.h2`
-  font-size: 2rem;
-  font-weight: 800;
-`;
 const NoListingsMessage = styled.p``;
 const ListingsContainer = styled.div``;
 const Listings = styled.ul`
@@ -29,8 +25,6 @@ const Listings = styled.ul`
 const Offers = () => {
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const params = useParams();
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -60,7 +54,7 @@ const Offers = () => {
 
   return (
     <Container>
-      <Title>Offers</Title>
+      <HeaderTitle title="offers"/>
       {loading ? (
         <Loading />
       ) : listings && listings.length > 0 ? (

@@ -14,12 +14,9 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import styled from "styled-components";
 import SingleListing from "../components/SingleListing";
+import HeaderTitle from "../components/HeaderTitle";
 
 const Container = styled.div``;
-const Title = styled.h2`
-  font-size: 2rem;
-  font-weight: 800;
-`;
 const NoListingsMessage = styled.p``;
 const ListingsContainer = styled.div``;
 const Listings = styled.ul`
@@ -60,9 +57,7 @@ const Category = () => {
 
   return (
     <Container>
-      <Title>
-        {params.categoryName === "rent" ? "Cabins for rent" : "Cabins for sale"}
-      </Title>
+      <HeaderTitle title={params.categoryName === "rent" ? "Cabins for rent" : "Cabins for sale"}/>
       {loading ? (
         <Loading />
       ) : listings && listings.length > 0 ? (

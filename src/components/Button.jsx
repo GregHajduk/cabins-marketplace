@@ -6,17 +6,24 @@ const Btn = styled.button`
   justify-content: center;
   align-items: center;
   padding: 0.5rem 1rem;
-  background-color: ${({ secondary }) => (secondary ? "black" : "#00cc66")};
-  color: white;
+  background-color: ${({ secondary }) =>
+    secondary ? "white" : "rebeccapurple"};
+  color: ${({ secondary }) => (secondary ? "black" : "white")};
   font-weight: 800;
   text-transform: uppercase;
   border-radius: 10px;
   cursor: pointer;
 `;
 
-const Button = ({ title, secondary }) => {
+const Button = ({ title, secondary, onClick, id, value }) => {
   return (
-    <Btn secondary={secondary} type="button">
+    <Btn
+      onClick={onClick}
+      secondary={secondary}
+      id={id}
+      value={value}
+      type="button"
+    >
       {title}
     </Btn>
   );
