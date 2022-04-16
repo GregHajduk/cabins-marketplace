@@ -1,10 +1,20 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import { addDoc, collection, serverTimestamp } from "@firebase/firestore";
+import { db } from "../firebase.config";
 import { useNavigate } from "react-router";
 import Loading from "../components/Loading";
 import HeaderTitle from "../components/HeaderTitle";
 import Button from "../components/Button";
 import styled from "styled-components";
+import { toast } from "react-toastify";
+import { v4 } from "uuid";
 
 const Container = styled.div``;
 const Wrapper = styled.div``;
@@ -133,10 +143,79 @@ const CreateListing = () => {
     });
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    setLoading(true);
+    if (discountedPrice >= regularPrice) {
+      setLoading(false);
+      toast.error("discounted price should be less then regular price");
+      return;
+    }
+    if (images.length > 4) {
+      setLoading(false);
+      toast.error("you can add max. 4 photos");
+      return;
+    }
+    const storeImage = async (image) => {
+      return new Promise((resolve, reject) => {
+        const storage = getStorage();
+        const fileName = `${image.name} + ${v4()}`;
+
+        const storageRef = ref(storage, "images/" + fileName);
+
+        const uploadTask = uploadBytesResumable(storageRef, image);
+
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            const progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log("Upload is " + progress + "% done");
+            switch (snapshot.state) {
+              case "paused":
+                console.log("Upload is paused");
+                break;
+              case "running":
+                console.log("Upload is running");
+                break;
+              default:
+                break;
+            }
+          },
+          (error) => {
+            reject(error);
+          },
+          () => {
+            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+              resolve(downloadURL);
+            });
+          }
+        );
+      });
+    };
+
+    const imageUrls = await Promise.all(
+      [...images].map((image) => storeImage(image))
+    ).catch(() => {
+      setLoading(false);
+      toast.error("Images not uploaded");
+      return;
+    });
+
+    const newFormData = {
+      ...formData,
+      imageUrls,
+      timestamp: serverTimestamp(),
+    };
+    delete newFormData.images;
+
+    const docRef = await addDoc(collection(db, "listings"), newFormData);
+
+    setLoading(false);
+    toast.success("you added a new listing");
+    navigate(`/category/${newFormData.type}/${docRef.id}`);
   };
+
   const handleClickAndChange = (e) => {
     e.preventDefault();
 
