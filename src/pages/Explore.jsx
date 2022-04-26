@@ -41,8 +41,8 @@ const Explore = () => {
             <CategoryImage src={rentCategoryImage} alt="rent" />
             <CategoryName>for rent</CategoryName>
           </CategoryLink>
-          <CategoryLink to="/category/sell">
-            <CategoryImage src={sellCategoryImage} alt="sell" />
+          <CategoryLink to="/category/sale">
+            <CategoryImage src={sellCategoryImage} alt="sale" />
             <CategoryName>for sale</CategoryName>
           </CategoryLink>
         </Categories>

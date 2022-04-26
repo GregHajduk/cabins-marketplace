@@ -3,17 +3,15 @@ import {
   getDocs,
   query,
   where,
-  orderBy,
   limit,
-  startAfter,
 } from "firebase/firestore";
 import { db } from "../firebase.config";
 import { toast } from "react-toastify";
 import Loading from "../components/Loading";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import SingleListing from "../components/SingleListing";
 import HeaderTitle from "../components/HeaderTitle";
+import SingleListingComponent from "../components/SingleListingComponent";
 
 const Container = styled.div``;
 const NoListingsMessage = styled.p``;
@@ -33,7 +31,6 @@ const Offers = () => {
         const listingsQuery = query(
           listingsRef,
           where("offer", "==", true),
-          // orderBy("timestamp", "desc"),
           limit(10)
         );
         const querySnap = await getDocs(listingsQuery);
@@ -62,7 +59,7 @@ const Offers = () => {
           <Listings>
             {listings.map((listing) => {
               return (
-                <SingleListing
+                <SingleListingComponent
                   listing={listing.data}
                   id={listing.id}
                   key={listing.id}

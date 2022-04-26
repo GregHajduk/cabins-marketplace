@@ -46,13 +46,13 @@ const FeatureText = styled.p`
 `;
 const DeleteButton = styled.button``;
 
-const SingleListing = ({ listing, id, handleDelete }) => {
+const SingleListingComponent = ({ listing, id, onDelete }) => {
   return (
     <ListingContainer>
-      <ListingLink to={`/category/${listing.type}.${id}`}>
+      <ListingLink to={`/category/${listing.type}/${id}`}>
         <ListingImg src={listing.imageUrls[0]} alt={listing.name} />
         <ListingDetails>
-          <ListingLocation>{listing.location}</ListingLocation>
+          <ListingLocation>{listing.address}</ListingLocation>
           <ListingName>{listing.name}</ListingName>
           <ListingPrice>
             £{listing.offer ? listing.discountedPrice : listing.regularPrice}
@@ -66,8 +66,8 @@ const SingleListing = ({ listing, id, handleDelete }) => {
           </ListingFeatures>
         </ListingDetails>
       </ListingLink>
-      {handleDelete && (
-        <DeleteButton onClick={() => handleDelete(listing.id, listing.name)}>
+      {onDelete && (
+        <DeleteButton onClick={() => onDelete(listing.id, listing.name)}>
           remove listing
         </DeleteButton>
       )}
@@ -75,4 +75,4 @@ const SingleListing = ({ listing, id, handleDelete }) => {
   );
 };
 
-export default SingleListing;
+export default SingleListingComponent;

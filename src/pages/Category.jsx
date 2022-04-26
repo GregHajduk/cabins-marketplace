@@ -3,9 +3,7 @@ import {
   getDocs,
   query,
   where,
-  orderBy,
   limit,
-  startAfter,
 } from "firebase/firestore";
 import { db } from "../firebase.config";
 import { toast } from "react-toastify";
@@ -13,7 +11,7 @@ import Loading from "../components/Loading";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import styled from "styled-components";
-import SingleListing from "../components/SingleListing";
+import SingleListingComponent from "../components/SingleListingComponent";
 import HeaderTitle from "../components/HeaderTitle";
 
 const Container = styled.div``;
@@ -36,9 +34,9 @@ const Category = () => {
         const listingsQuery = query(
           listingsRef,
           where("type", "==", params.categoryName),
-          // orderBy("timestamp", "desc"),
           limit(10)
-        );
+          );
+          console.log(params.categoryName)
         const querySnap = await getDocs(listingsQuery);
         querySnap.forEach((doc) => {
           return listings.push({
@@ -65,7 +63,7 @@ const Category = () => {
           <Listings>
             {listings.map((listing) => {
               return (
-                <SingleListing
+                <SingleListingComponent
                   listing={listing.data}
                   id={listing.id}
                   key={listing.id}

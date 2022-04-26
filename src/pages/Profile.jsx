@@ -1,7 +1,15 @@
 import { getAuth, updateProfile } from "firebase/auth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { updateDoc, doc } from "firebase/firestore";
+import {
+  updateDoc,
+  doc,
+  where,
+  getDocs,
+  query,
+  collection,
+  deleteDoc,
+} from "firebase/firestore";
 import { db } from "../firebase.config";
 
 import styled from "styled-components";
@@ -9,6 +17,7 @@ import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import Button from "../components/Button";
 import HeaderTitle from "../components/HeaderTitle";
+import SingleListingComponent from "../components/SingleListingComponent";
 
 const ProfileContainer = styled.div``;
 const Header = styled.header`
@@ -48,16 +57,21 @@ const CreateListingLink = styled(Link)`
   justify-content: center;
   margin-top: 2rem;
 `;
+const ListingsText = styled.p``;
+const ListingsList = styled.ul``;
 
 const Profile = () => {
   const auth = getAuth();
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState({
     name: auth.currentUser.displayName,
     email: auth.currentUser.email,
   });
-  const { name, email } = userData;
   const [changeUserData, setChangeUserData] = useState(false);
+  const [listings, setListings] = useState(null);
+  const navigate = useNavigate();
+
+  const { name, email } = userData;
 
   const handleLogout = () => {
     auth.signOut();
@@ -83,6 +97,36 @@ const Profile = () => {
       ...userData,
       [e.target.id]: e.target.value,
     }));
+  };
+
+  useEffect(() => {
+    const fetchUserListings = async () => {
+      const listingsRef = collection(db, "listings");
+
+      const q = query(
+        listingsRef,
+        where("userRef", "==", auth.currentUser.uid)
+      );
+      const querySnap = await getDocs(q);
+
+      const listings = [];
+      querySnap.forEach((doc) => {
+        return listings.push({
+          id: doc.id,
+          data: doc.data(),
+        });
+      });
+      setListings(listings);
+      setLoading(false);
+      console.log(listings);
+    };
+    fetchUserListings();
+  }, [auth.currentUser.uid]);
+
+  const handleDelete = (listingId) => {
+    deleteDoc(doc(db, "listings", listingId));
+    const newListings = listings.filter((listing) => listing.id !== listingId);
+    setListings(newListings);
   };
 
   return (
@@ -119,8 +163,23 @@ const Profile = () => {
         ></Input>
       </ProfileForm>
       <CreateListingLink to="/create-listing">
-        <Button title="create a listing" />
+        <Button title="create a new listing" />
       </CreateListingLink>
+      {!loading && listings.length > 0 && (
+        <>
+          <ListingsText>your listings</ListingsText>
+          <ListingsList>
+            {listings.map((listing) => (
+              <SingleListingComponent
+                key={listing.id}
+                listing={listing.data}
+                id={listing.id}
+                onDelete={() => handleDelete(listing.id)}
+              />
+            ))}
+          </ListingsList>
+        </>
+      )}
     </ProfileContainer>
   );
 };
