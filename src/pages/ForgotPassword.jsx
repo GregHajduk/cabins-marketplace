@@ -9,7 +9,7 @@ import HeaderTitle from "../components/HeaderTitle";
 const Form = styled.form``;
 const Input = styled.input`
   margin-bottom: 2rem;
-  background-color: white;
+  background-color: var(--main-light-color);
   box-shadow: rgba(0, 0, 0, 0.11);
   border: none;
   border-radius: 3rem;
@@ -21,7 +21,7 @@ const Input = styled.input`
 `;
 const SignInLink = styled(Link)`
   cursor: pointer;
-  color: rebeccapurple;
+  color: var(--main-accent-color);
   font-weight: 600;
   text-align: right;
 `;
@@ -42,7 +42,7 @@ const Button = styled.button`
   align-items: center;
   width: 3rem;
   height: 3rem;
-  background-color: rebeccapurple;
+  background-color: var(--main-accent-color);
   border-radius: 50%;
   cursor: pointer;
 `;

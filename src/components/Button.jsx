@@ -7,11 +7,10 @@ const Btn = styled.button`
   align-items: center;
   padding: 0.5rem 1rem;
   background-color: ${({ secondary }) =>
-    secondary ? "white" : "rebeccapurple"};
+    secondary ? "white" : "var(--main-accent-color)"};
   color: ${({ secondary }) => (secondary ? "black" : "white")};
   font-weight: 800;
   text-transform: uppercase;
-  border-radius: 10px;
   cursor: pointer;
 `;
 

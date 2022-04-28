@@ -1,7 +1,4 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import { ReactComponent as OfferIcon } from "../assets/svg/localOfferIcon.svg";
-import { ReactComponent as ExploreIcon } from "../assets/svg/exploreIcon.svg";
-import { ReactComponent as PersoneOutlineIcon } from "../assets/svg/personOutlineIcon.svg";
 import styled from "styled-components";
 
 const Nav = styled.div`
@@ -10,7 +7,7 @@ const Nav = styled.div`
   top: 0;
   width: 100%;
   height: 6rem;
-  background-color: #ffffff;
+  background-color: var(--main-accent-color);
   z-index: 1000;
   display: flex;
   justify-content: center;
@@ -18,7 +15,6 @@ const Nav = styled.div`
 `;
 const NavbarWrapper = styled.div`
   width: 100%;
-  margin-top: 0.75rem;
   overflow-y: hidden;
 `;
 const NavbarListItems = styled.ul`
@@ -34,7 +30,12 @@ const NavbarListItem = styled.li`
   flex-direction: column;
   align-items: center;
 `;
-const NavbarListItemTitle = styled.p``;
+const NavbarListItemTitle = styled.p`
+  padding: 0.5rem 2rem;
+  color: ${(props) => props.color};
+  text-transform: capitalize;
+  font-weight: 700;
+`;
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -50,31 +51,28 @@ const Navbar = () => {
       <NavbarWrapper>
         <NavbarListItems>
           <NavbarListItem>
-            <ExploreIcon
-              fill={active("/") ? "rebeccapurple" : "grey"}
-              height="2rem"
-              width="2rem"
+            <NavbarListItemTitle
+              color={active("/") ? "var(--main-light-color)" : "var(--main-dark-color)"}
               onClick={() => navigate("/")}
-            />
-            <NavbarListItemTitle>explore</NavbarListItemTitle>
+            >
+              discover
+            </NavbarListItemTitle>
           </NavbarListItem>
           <NavbarListItem>
-            <OfferIcon
-              fill={active("/offers") ? "rebeccapurple" : "grey"}
-              height="2rem"
-              width="2rem"
+            <NavbarListItemTitle
+              color={active("/offers") ? "var(--main-light-color)" : "var(--main-dark-color)"}
               onClick={() => navigate("/offers")}
-            />
-            <NavbarListItemTitle>offers</NavbarListItemTitle>{" "}
+            >
+              offers
+            </NavbarListItemTitle>
           </NavbarListItem>
           <NavbarListItem>
-            <PersoneOutlineIcon
-              fill={active("/profile") ? "rebeccapurple" : "grey"}
-              height="2rem"
-              width="2rem"
+            <NavbarListItemTitle
+              color={active("/profile") ? "var(--main-light-color)" : "var(--main-dark-color)"}
               onClick={() => navigate("/profile")}
-            />
-            <NavbarListItemTitle>profile</NavbarListItemTitle>{" "}
+            >
+              my profile
+            </NavbarListItemTitle>
           </NavbarListItem>
         </NavbarListItems>
       </NavbarWrapper>

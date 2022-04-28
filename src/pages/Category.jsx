@@ -1,10 +1,4 @@
-import {
-  collection,
-  getDocs,
-  query,
-  where,
-  limit,
-} from "firebase/firestore";
+import { collection, getDocs, query, where, limit } from "firebase/firestore";
 import { db } from "../firebase.config";
 import { toast } from "react-toastify";
 import Loading from "../components/Loading";
@@ -18,7 +12,10 @@ const Container = styled.div``;
 const NoListingsMessage = styled.p``;
 const ListingsContainer = styled.div``;
 const Listings = styled.ul`
+  display: grid;
+  gap: 3rem;
   padding: 0;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
 `;
 
 const Category = () => {
@@ -35,8 +32,7 @@ const Category = () => {
           listingsRef,
           where("type", "==", params.categoryName),
           limit(10)
-          );
-          console.log(params.categoryName)
+        );
         const querySnap = await getDocs(listingsQuery);
         querySnap.forEach((doc) => {
           return listings.push({
@@ -55,7 +51,11 @@ const Category = () => {
 
   return (
     <Container>
-      <HeaderTitle title={params.categoryName === "rent" ? "Cabins for rent" : "Cabins for sale"}/>
+      <HeaderTitle
+        title={
+          params.categoryName === "rent" ? "Cabins for rent" : "Cabins for sale"
+        }
+      />
       {loading ? (
         <Loading />
       ) : listings && listings.length > 0 ? (

@@ -19,7 +19,7 @@ const Form = styled.form`
 const EmailInput = styled.input`
   box-shadow: rgba(0, 0, 0, 0.11);
   border: none;
-  background: white;
+  background: var(--main-light-color);
   border-radius: 3rem;
   height: 3rem;
   width: 100%;
@@ -32,7 +32,7 @@ const PasswordInputContainer = styled.div`
 `;
 const PasswordInput = styled.input`
   margin-bottom: 2rem;
-  background: white;
+  background: var(--main-light-color);
   box-shadow: rgba(0, 0, 0, 0.11);
   border: none;
   border-radius: 3rem;
@@ -51,7 +51,7 @@ const Image = styled.img`
 `;
 const ForgotPassword = styled(Link)`
   cursor: pointer;
-  color: rebeccapurple;
+  color: var(--main-accent-color);
   font-weight: 600;
   text-align: right;
 `;
@@ -72,13 +72,13 @@ const Button = styled.button`
   align-items: center;
   width: 3rem;
   height: 3rem;
-  background-color: rebeccapurple;
+  background-color: var(--main-accent-color);
   border-radius: 50%;
   cursor: pointer;
 `;
 const Register = styled(Link)`
   margin-top: 4rem;
-  color: rebeccapurple;
+  color: var(--main-accent-color);
   font-weight: 600;
   text-align: center;
   margin-bottom: 3rem;

@@ -3,34 +3,32 @@ import bathtubIcon from "../assets/svg/bathtubIcon.svg";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-const ListingContainer = styled.div`
-  width: 100%;
-`;
+const ListingContainer = styled.div``;
 const ListingLink = styled(Link)``;
 const ListingImg = styled.img`
   width: 100%;
   height: 15rem;
-  border-radius: 10px;
   object-fit: cover;
+  margin-bottom: 1rem;
 `;
 const ListingDetails = styled.div``;
 const ListingLocation = styled.p`
   font-weight: 600;
   font-size: 0.75rem;
   opacity: 0.8;
-  margin-bottom: 0;
+  margin-bottom: 0.25rem;
 `;
 const ListingName = styled.p`
-  font-weight: 600;
-  font-size: 1.25rem;
+  font-weight: 800;
+  font-size: 1.35rem;
   margin: 0;
+  color: var(--main-accent-color);
 `;
 const ListingPrice = styled.p`
   margin-top: 0.5rem;
+  margin-bottom: 1rem;
   font-weight: 600;
   font-size: 1.1rem;
-  color: #00cc66;
-  margin-bottom: 0;
   display: flex;
   align-items: center;
 `;
@@ -39,7 +37,7 @@ const ListingFeatures = styled.div`
   justify-content: space-between;
   width: 70%;
 `;
-const FeatureImg = styled.img``;
+const FeatureImg = styled.img``; 
 const FeatureText = styled.p`
   font-weight: 500;
   font-size: 0.75rem;

@@ -19,7 +19,10 @@ import Button from "../components/Button";
 import HeaderTitle from "../components/HeaderTitle";
 import SingleListingComponent from "../components/SingleListingComponent";
 
-const ProfileContainer = styled.div``;
+const ProfileContainer = styled.div`
+  max-width: 30rem;
+  margin: 0 auto;
+`;
 const Header = styled.header`
   display: flex;
   justify-content: space-between;
@@ -32,11 +35,12 @@ const UserDetailsContainer = styled.div`
 `;
 const DetailsName = styled.p`
   font-weight: 600;
+  margin-bottom: 0.5rem;
 `;
 const ChangeDetailsButton = styled.button`
   cursor: pointer;
   font-weight: 600;
-  color: rebeccapurple;
+  color: var(--main-accent-color);
   background-color: transparent;
 `;
 const ProfileForm = styled.form``;
@@ -45,7 +49,7 @@ const Input = styled.input`
   padding: 0.5rem 1rem;
   font-weight: 600;
   width: 100%;
-  background-color: white;
+  background-color: var(--main-light-color);
   outline: none;
   border: none;
   border-radius: 5px;
@@ -118,7 +122,6 @@ const Profile = () => {
       });
       setListings(listings);
       setLoading(false);
-      console.log(listings);
     };
     fetchUserListings();
   }, [auth.currentUser.uid]);
@@ -163,7 +166,7 @@ const Profile = () => {
         ></Input>
       </ProfileForm>
       <CreateListingLink to="/create-listing">
-        <Button title="create a new listing" />
+        <Button color="var(--main-accent-color)" title="create a new listing" />
       </CreateListingLink>
       {!loading && listings.length > 0 && (
         <>

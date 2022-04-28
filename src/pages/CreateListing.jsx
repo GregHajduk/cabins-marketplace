@@ -81,7 +81,7 @@ const PriceText = styled.p`
 `;
 const SubmitButton = styled.button`
   cursor: pointer;
-  background: rebeccapurple;
+  background: var(--main-accent-color);
   border-radius: 1rem;
   padding: 0.85rem 2rem;
   color: #ffffff;

@@ -5,22 +5,49 @@ import { useNavigate, useParams } from "react-router";
 import { db } from "../firebase.config";
 import Loading from "../components/Loading";
 import styled from "styled-components";
-import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+import SwiperCore, { Navigation, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css/bundle";
-SwiperCore.use([Pagination]);
+SwiperCore.use([Pagination, Navigation]);
 
 const ListingInfo = styled.div`
   height: 100%;
 `;
-const ListingName = styled.h4``;
-const ListingPrice = styled.p``;
-const Discount = styled.p``;
-const ListingLocation = styled.p``;
-const ListingType = styled.p``;
-const ListingRooms = styled.p``;
-const ListingFeature = styled.p``;
-const ContactLandlord = styled.p``;
+const ListingName = styled.h4`
+  margin-top: 1rem;
+  font-size: 2rem;
+  color: var(--main-accent-color);
+`;
+const ListingPrice = styled.p`
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+`;
+const Discount = styled.p`
+  margin-bottom: 0.5rem;
+`;
+const ListingLocation = styled.p`
+  margin-bottom: 1rem;
+`;
+const ListingType = styled.p`
+  background-color: var(--main-dark-color);
+  color: var(--main-light-color);
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  margin-bottom: 0.75rem;
+`;
+const ListingFeaturesContainer = styled.div`
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+`;
+const ListingFeature = styled.p`
+  color: var(--main-light-color);
+  background-color: var(--main-accent-color);
+  padding: 0.5rem 1rem;
+  white-space: nowrap;
+`;
+const ContactOwner = styled.p``;
 const ImgContainer = styled.div`
   position: relative;
   width: 100%;
@@ -37,7 +64,6 @@ const SingleListing = () => {
 
   const navigate = useNavigate();
   const params = useParams();
-  console.log(params);
   const auth = getAuth();
 
   useEffect(() => {
@@ -56,7 +82,6 @@ const SingleListing = () => {
   if (loading) {
     return <Loading />;
   }
-  console.log(listing.userRef);
   return (
     <ListingInfo>
       <Swiper slidesPerView={1} pagination={{ clickable: true }}>
@@ -71,22 +96,24 @@ const SingleListing = () => {
         })}
       </Swiper>
       <ListingName>{listing.name}</ListingName>
-      <ListingLocation>{listing.location}</ListingLocation>
+      <ListingLocation>{listing.address}</ListingLocation>
       <ListingPrice>
-        {listing.offer ? listing.discountedPrice : listing.regularPrice}
+        £{listing.offer ? listing.discountedPrice : listing.regularPrice} {listing.type === "rent" && "/ month"}
       </ListingPrice>
       {listing.offer && (
         <Discount>
           {listing.regularPrice - listing.discountedPrice} off regular price
         </Discount>
       )}
-      <ListingType>{listing.type === "rent" ? "rent" : "sale"}</ListingType>
-      <ListingRooms>bedrooms : {listing.bedrooms} </ListingRooms>
-      <ListingRooms>bathrooms : {listing.bathrooms} </ListingRooms>
-      <ListingFeature>{listing.parking && "parking"}</ListingFeature>
-      <ListingFeature>{listing.furnished && "furnished"}</ListingFeature>
-      <ListingFeature>{listing.wifi && "wifi"}</ListingFeature>
-      <ContactLandlord>{}</ContactLandlord>
+      <ListingType>{listing.type === "rent" ? "for rent" : "for sale"}</ListingType>
+      <ListingFeaturesContainer>
+        <ListingFeature>bedrooms : {listing.bedrooms} </ListingFeature>
+        <ListingFeature>bathrooms : {listing.bathrooms} </ListingFeature>
+        {listing.parking && <ListingFeature>parking</ListingFeature>}
+        {listing.furnished && <ListingFeature>furnished</ListingFeature>}
+        {listing.wifi && <ListingFeature>wifi</ListingFeature>}
+      </ListingFeaturesContainer>
+      <ContactOwner>{}</ContactOwner>
     </ListingInfo>
   );
 };
